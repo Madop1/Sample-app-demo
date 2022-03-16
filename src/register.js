@@ -48,6 +48,7 @@ export default function Register() {
             <div className="form-group">
               <label htmlFor="username">Username </label>
               <input
+              data-testid="username"
                 type="text"
                 name="username"
                 placeholder="Username"
@@ -58,6 +59,7 @@ export default function Register() {
             <div className="form-group">
               <label htmlFor="username">Email </label>
               <input
+              data-testid="mail"
                 type="mail"
                 name="email"
                 placeholder="Email"
@@ -78,7 +80,7 @@ export default function Register() {
           </div>
         </div>
         <div>
-          {console.log("disable",disable)}
+          {/* {console.log("disable",disable)} */}
           <button  type="button" disabled={disable} className="btn" onClick={()=> submitHandler()} >
             Register
           </button>

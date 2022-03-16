@@ -1,38 +1,79 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import loginImg from "./login.svg";
 import "./style.scss";
 import { UserContext } from "./UserContext";
 export default function Register() {
   const msg = useContext(UserContext);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userdata, setUserdata] = useState([]);
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [userdata, setUserdata] = useState([]);
+  // const [userData, setUserData] = useState({});
+  const [userDetail, setuserDetails] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const handle = () => {
-    var data = {
-      Username: username,
-      Email: email,
-      Password: password,
-    };
-    setUserdata({ ...userdata, data });
+  const handleChange = (e) => {
+    setuserDetails({ ...userDetail, [e.target.name]: e.target.value });
+    // var data = {
+    //   Username: username,
+    //   Email: email,
+    //   Password: password,
+    // };
+    // setUserdata([ ...userdata, data ]);
   };
-  useEffect(() => {
-    localStorage.setItem("userdata", JSON.stringify(userdata));
-  }, [userdata]);
+  console.log(userDetail);
 
-  function handleUsername(e) {
-    e.preventDefault();
-    setUsername(e.target.value);
-  }
-  function handleEmail(e) {
-    e.preventDefault();
-    setEmail(e.target.value);
-  }
-  function handlePassword(e) {
-    e.preventDefault();
-    setPassword(e.target.value);
-  }
+  const handle = (e) => {
+    let userDetails = localStorage.getItem("user");
+    if (userDetails == null) {
+      localStorage.setItem("user", JSON.stringify([userDetail]));
+    } else {
+      let data = JSON.parse(userDetails);
+      data.push(userDetail);
+      localStorage.setItem("user", JSON.stringify(data));
+    }
+    setuserDetails({
+      username: "",
+      email: "",
+      password: "",
+    })
+
+  };
+  // useEffect(() => {
+  //   // localStorage.getItem("users", JSON.stringify());
+  //   // let arr = localStorage.getItem("users");
+  //   // if (arr == null) {
+  //   //   localStorage.setItem("userdata", JSON.stringify(userdata));
+  //   // }else {
+  //   //   let userdata = JSON.parse(arr);
+
+  //   //   localStorage.setItem("users", JSON.stringify(userdata));
+  //   // }
+  //   let userDetails = localStorage.getItem("user");
+  //   if (userDetails == null) {
+  //     localStorage.setItem("user", JSON.stringify([userData]));
+  //   } else {
+  //     let data = JSON.parse(userDetails);
+  //     data.push(userData);
+  //     localStorage.setItem("user", JSON.stringify(data));
+  //   }
+  // }, [userData]);
+
+  // function handleUsername(e) {
+  //   e.preventDefault();
+  //   setUsername(e.target.value);
+  // }
+  // function handleEmail(e) {
+  //   e.preventDefault();
+  //   setEmail(e.target.value);
+  // }
+  // function handlePassword(e) {
+  //   e.preventDefault();
+  //   setPassword(e.target.value);
+  // }
 
   return (
     <>
@@ -50,8 +91,8 @@ export default function Register() {
                 type="text"
                 name="username"
                 placeholder="Username"
-                value={username}
-                onChange={handleUsername}
+                value={userDetail.username}
+                onChange={handleChange}
               ></input>
             </div>
             <div className="form-group">
@@ -60,8 +101,8 @@ export default function Register() {
                 type="email"
                 name="email"
                 placeholder="Email"
-                value={email}
-                onChange={handleEmail}
+                value={userDetail.email}
+                onChange={handleChange}
               ></input>
             </div>
             <div className="form-group">
@@ -70,8 +111,8 @@ export default function Register() {
                 type="password"
                 name="password"
                 placeholder="Password"
-                value={password}
-                onChange={handlePassword}
+                value={userDetail.password}
+                onChange={handleChange}
               ></input>
             </div>
           </div>

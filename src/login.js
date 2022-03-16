@@ -4,9 +4,6 @@ import "./style.scss";
 import { UserContext } from "./UserContext";
 const Login = () => {
   const msg = useContext(UserContext);
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [users, setUsers] = useState([]);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -29,22 +26,8 @@ const Login = () => {
     });
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem("user", JSON.stringify(users));
-  // }, [users]);
-
-  // function handleEmail(e) {
-  //   e.preventDefault();
-  //   setEmail(e.target.value);
-  //   console.log(e.target.value);
-  // }
-  // function handlePassword(e) {
-  //   e.preventDefault();
-  //   setPassword(e.target.value);
-  //   console.log(e.target.value);
-  // }
-
   function handleChange(e) {
+    console.log("e.target.value",e.target.value)
     setData({ ...data, [e.target.name]: e.target.value });
   }
 
@@ -61,7 +44,7 @@ const Login = () => {
             <div className="form">
               <div className="form-group">
                 <label htmlFor="Email">Email </label>
-                <input
+                <input data-testid="emails"
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -72,7 +55,7 @@ const Login = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password </label>
-                <input
+                <input data-testid="password"
                   type="password"
                   name="password"
                   placeholder="Password"
@@ -84,7 +67,7 @@ const Login = () => {
             </div>
           </div>
           <div>
-            <input type="submit" value="Login" className="btn" />
+            <input type="submit" value="Login" className="btn" data-testid="btn"/>
           </div>
         </div>
       </form>
