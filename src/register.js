@@ -11,6 +11,8 @@ export default function Register() {
   const [disable,setDisable] = useState(true)
  
  const  submitHandler = () => {
+  console.log("clicked")
+  setDisable(true) 
   localStorage.getItem("users", JSON.stringify());
   let arr = localStorage.getItem("users");  
   if (arr == null) {    
@@ -25,7 +27,8 @@ export default function Register() {
     email:"",
     password:""
   })
-  setDisable(true) 
+
+
  }
  const changeHandler = (e) => {
    setData({...data,[e.target.name]: e.target.value});
@@ -69,7 +72,8 @@ export default function Register() {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password </label>
-              <input
+              <input 
+                data-testid="pass"
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -81,7 +85,7 @@ export default function Register() {
         </div>
         <div>
           {/* {console.log("disable",disable)} */}
-          <button  type="button" disabled={disable} className="btn" onClick={()=> submitHandler()} >
+          <button data-testid="btn" type="button" className="btn" onClick={()=> submitHandler()} >
             Register
           </button>
         </div>
